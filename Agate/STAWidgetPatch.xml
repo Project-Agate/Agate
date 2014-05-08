@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>nodeAttributes</key>
+        <dict>
+            <key>category</key>
+            <string>Agate</string>
+            <key>categories</key>
+            <array>
+                <string>Agate</string>
+            </array>
+            <key>description</key>
+            <string></string>
+            <key>name</key>
+            <string>Agate Widget</string>
+        </dict>
+    </dict>
+</plist>

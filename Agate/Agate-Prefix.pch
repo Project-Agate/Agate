@@ -1,0 +1,11 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#ifdef __OBJC__
+    #import <SkankySDK/SkankySDK.h>
+    #import <Cocoa/Cocoa.h>
+    #import <ReactiveCocoa/ReactiveCocoa.h>
+#endif
