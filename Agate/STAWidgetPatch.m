@@ -60,8 +60,16 @@
 
 -(BOOL)execute:(QCOpenGLContext*)context time:(double)time arguments:(NSDictionary*)arguments
 {
+    if (self.webView) {
+        [self.webView becomeFirstResponder];
+    }
 	return YES;
 }
+
+- (void)setValue:(id)value forKey:(NSString *)key {
+    
+}
+
 
 - (void)stateUpdated {
     if (!self.userInfo[@".old-position"] && self.userInfo[@"position"]) {

@@ -11,8 +11,8 @@
 
 @interface STAWidgetPatch : QCPatch
 {
-	QCBooleanPort *inputBool;
-	QCBooleanPort *outputBool;
+	QCStringPort *inputHTML;
+	QCStringPort *inputCSS;
 }
 
 @property (nonatomic, retain) WebView* webView;
