@@ -10,6 +10,7 @@
 #import "STAWidgetPatch.h"
 #import "STAgatePrincipal.h"
 #import "GFGraphView+Addition.h"
+#import "STAConnectionTrackingView.h"
 
 @implementation QCPatchView (Addition)
 
@@ -78,11 +79,25 @@
     }
 }
 
+- (void)viewDidMoveToWindow {
+    STAConnectionTrackingView* trackingView = [STAConnectionTrackingView sharedView];
+    trackingView.frame = self.bounds;
+    NSView* patchEditorView = [[self.superview superview] superview];
+    [patchEditorView addSubview:trackingView];
+}
+
 - (void)ag_drawConnection:(id)fp8 fromPort:(id)fp12 point:(NSPoint)fp16 toPoint:(NSPoint)fp24 {
-    [self ag_drawConnection:fp8 fromPort:fp12 point:fp16 toPoint:fp24];
+    //[self ag_drawConnection:fp8 fromPort:fp12 point:fp16 toPoint:fp24];
     
     NSPoint p = [self.window mouseLocationOutsideOfEventStream];
     [self mouseMoved:[NSEvent mouseEventWithType:NSMouseMoved location:p modifierFlags:0 timestamp:[[NSDate date] timeIntervalSince1970] windowNumber:[self.window windowNumber] context:[NSGraphicsContext currentContext] eventNumber:0 clickCount:1 pressure:0]];
+    
+    STAConnectionTrackingView* view = [STAConnectionTrackingView sharedView];
+    
+    view.plot = YES;
+    view.start = [self convertPoint:fp16 toView:[STAConnectionTrackingView sharedView]];
+    view.end = [self convertPoint:fp24 toView:[STAConnectionTrackingView sharedView]];
+    [view setNeedsDisplay:YES];
 }
 
 - (void)ag_drawNode:(id)fp8 bounds:(NSRect)fp12 {
