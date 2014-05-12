@@ -398,14 +398,16 @@ NSTrackingArea* area = [[NSTrackingArea alloc] initWithRect:self.bounds options:
             }];
             
             
-            NSTrackingArea* area = [[NSTrackingArea alloc] initWithRect:self.bounds options:NSTrackingMouseMoved | NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingEnabledDuringMouseDrag  owner:patch userInfo:nil];
-            [[[NSApp keyWindow] contentView] addTrackingArea:area];
+            //NSTrackingArea* area = [[NSTrackingArea alloc] initWithRect:self.bounds options:NSTrackingMouseMoved | NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingEnabledDuringMouseDrag  owner:patch userInfo:nil];
+            //[[[NSApp keyWindow] contentView] addTrackingArea:area];
 
             
             //[context evaluateScript:@"Webview.startSelecting()"];
             webView.UIDelegate = self;
             webView.frameLoadDelegate = self;
             //[box setContentView:webView];
+            
+            
             
             [[RACSignal interval:0.01 onScheduler:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
                 NSPoint p = [self.window mouseLocationOutsideOfEventStream];
