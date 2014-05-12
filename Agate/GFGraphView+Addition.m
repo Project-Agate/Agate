@@ -1,23 +1,23 @@
 //
-//  GFGraphEditorView+Addition.m
+//  GFGraphView+Addition.m
 //  Agate
 //
-//  Created by zeta on 2014/5/11.
+//  Created by zeta on 2014/5/12.
 //  Copyright (c) 2014年 shotdoor. All rights reserved.
 //
 
-#import "GFGraphEditorView+Addition.h"
+#import "GFGraphView+Addition.h"
 
-@implementation GFGraphEditorView (Addition)
+@implementation GFGraphView (Addition)
 
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      //  [[self class] swizzleMouseDrag];
+        [[self class] swizzleMouseMoved];
     });
 }
 
-+ (void)swizzleMouseDrag {
++ (void)swizzleMouseMoved {
     Class class = [self class];
     
     // When swizzling a class method, use the following:
@@ -43,14 +43,11 @@
     } else {
         method_exchangeImplementations(originalMethod, swizzledMethod);
     }
-    
 }
-
 
 - (void)ag_mouseMoved:(NSEvent *)theEvent {
     [self ag_mouseMoved:theEvent];
-    
+    [super mouseMoved:theEvent];
 }
-
 
 @end
