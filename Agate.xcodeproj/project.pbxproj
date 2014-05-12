@@ -15,7 +15,6 @@
 		185C113B191895BF0035802C /* STAWidgetPatch.xml in Resources */ = {isa = PBXBuildFile; fileRef = 185C113A191895BF0035802C /* STAWidgetPatch.xml */; };
 		185C1142191B54040035802C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185C1141191B54040035802C /* WebKit.framework */; };
 		18A3A250191D124C00230A08 /* webview in Resources */ = {isa = PBXBuildFile; fileRef = 18A3A24F191D124B00230A08 /* webview */; };
-		18A3A253191DE16300230A08 /* WebView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3A252191DE16300230A08 /* WebView+Addition.m */; };
 		18A3A2601920F84700230A08 /* QCPatchView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3A25F1920F84700230A08 /* QCPatchView+Addition.m */; };
 		18A3A2661921139A00230A08 /* GFGraphView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3A2651921139A00230A08 /* GFGraphView+Addition.m */; };
 		18A3A2691921169D00230A08 /* STAConnectionTrackingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3A2681921169D00230A08 /* STAConnectionTrackingView.m */; };
@@ -65,8 +64,6 @@
 		185C113A191895BF0035802C /* STAWidgetPatch.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = STAWidgetPatch.xml; sourceTree = "<group>"; };
 		185C1141191B54040035802C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		18A3A24F191D124B00230A08 /* webview */ = {isa = PBXFileReference; lastKnownFileType = folder; path = webview; sourceTree = "<group>"; };
-		18A3A251191DE16200230A08 /* WebView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WebView+Addition.h"; sourceTree = "<group>"; };
-		18A3A252191DE16300230A08 /* WebView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WebView+Addition.m"; sourceTree = "<group>"; };
 		18A3A257191E692D00230A08 /* FBOrigamiAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBOrigamiAdditions.h; sourceTree = "<group>"; };
 		18A3A25E1920F84700230A08 /* QCPatchView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QCPatchView+Addition.h"; sourceTree = "<group>"; };
 		18A3A25F1920F84700230A08 /* QCPatchView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QCPatchView+Addition.m"; sourceTree = "<group>"; };
@@ -136,6 +133,7 @@
 		185C10D9191886090035802C /* Agate */ = {
 			isa = PBXGroup;
 			children = (
+				18A3A26A192128FD00230A08 /* Classes */,
 				185C113C191B30B60035802C /* Additions */,
 				185C112D191891FF0035802C /* Patches */,
 				185C10EB191889F20035802C /* STAgatePrincipal.h */,
@@ -208,12 +206,17 @@
 				18A3A2651921139A00230A08 /* GFGraphView+Addition.m */,
 				18A3A25E1920F84700230A08 /* QCPatchView+Addition.h */,
 				18A3A25F1920F84700230A08 /* QCPatchView+Addition.m */,
-				18A3A2671921169D00230A08 /* STAConnectionTrackingView.h */,
-				18A3A2681921169D00230A08 /* STAConnectionTrackingView.m */,
-				18A3A251191DE16200230A08 /* WebView+Addition.h */,
-				18A3A252191DE16300230A08 /* WebView+Addition.m */,
 			);
 			name = Additions;
+			sourceTree = "<group>";
+		};
+		18A3A26A192128FD00230A08 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				18A3A2671921169D00230A08 /* STAConnectionTrackingView.h */,
+				18A3A2681921169D00230A08 /* STAConnectionTrackingView.m */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,7 +332,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18A3A253191DE16300230A08 /* WebView+Addition.m in Sources */,
 				18A3A2601920F84700230A08 /* QCPatchView+Addition.m in Sources */,
 				185C10EE191889F20035802C /* STAgatePrincipal.m in Sources */,
 				185C1139191894BF0035802C /* STAWidgetPatch.m in Sources */,
