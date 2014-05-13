@@ -8,9 +8,14 @@
 
 #import "STAWidgetPatch.h"
 #import "Origami/FBOrigamiAdditions.h"
+#import "STAConnectionTrackingView.h"
+#import "STAgateAdditions.h"
 
 
-@implementation STAWidgetPatch
+@implementation STAWidgetPatch {
+    QCPort* connectFromPort;
+    NSString* selectedElementId;
+}
 
 +(BOOL)isSafe
 {
@@ -37,6 +42,8 @@
 	if(self = [super initWithIdentifier:identifier])
 	{
 		[[self userInfo] setObject:@"Agate Widget" forKey:@"name"];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionStarted:) name:@"agConnectionStart" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionEnded:) name:@"agConnectionEnd" object:nil];
 	}
 	return self;
 }
@@ -70,10 +77,60 @@
     
 }
 
+- (void)connectionStarted: (id) sender {
+    JSGlobalContextRef ref = [[self.webView mainFrame] globalContext];
+    JSContext* context = [JSContext contextWithJSGlobalContextRef:ref];
+    [context evaluateScript:@"Webview.startSelecting()"];
+    connectFromPort = [sender userInfo][@"fromPort"];
+}
+
+- (void)connectionEnded: (id) sender {
+    JSGlobalContextRef ref = [[self.webView mainFrame] globalContext];
+    JSContext* context = [JSContext contextWithJSGlobalContextRef:ref];
+    JSValue* selectedElement = [context evaluateScript:@"Webview.getCurrentElementDetail()"];
+    if (![selectedElement isNull]) {
+        // show contextual menu
+        selectedElementId = [selectedElement[@"uid"] toString];
+        
+        NSMenu *theMenu = [[NSMenu alloc] initWithTitle:@"Select Binding"];
+        
+        NSDictionary* dict = [selectedElement toDictionary];
+        for (NSInteger i = 0; i < [dict[@"events"] count]; i++) {
+            
+            [theMenu insertItemWithTitle:dict[@"events"][i] action:@selector(menuItemSelected:) keyEquivalent:@"" atIndex:i];
+        }
+        
+        [theMenu insertItem:[NSMenuItem separatorItem] atIndex:theMenu.itemArray.count];
+        
+        for (NSString* attribute in dict[@"attributes"]) {
+            [theMenu insertItemWithTitle:attribute action:@selector(menuItemSelected:) keyEquivalent:@"" atIndex:[theMenu itemArray].count];
+        }
+        
+        for (NSMenuItem* item in theMenu.itemArray) {
+            [item setTarget:self];
+        }
+        
+        NSPoint p = [[NSApp keyWindow] mouseLocationOutsideOfEventStream];
+        NSEvent* event = [NSEvent mouseEventWithType:NSMouseMoved location:p modifierFlags:0 timestamp:[[NSDate date] timeIntervalSince1970] windowNumber:[[NSApp keyWindow] windowNumber] context:[NSGraphicsContext currentContext] eventNumber:0 clickCount:1 pressure:0];
+        
+        [NSMenu popUpContextMenu:theMenu withEvent:event forView:[STAConnectionTrackingView sharedView]];
+    }
+    [context evaluateScript:@"Webview.clearSelection()"];
+    [context evaluateScript:@"Webview.stopSelecting()"];
+}
+
+- (void)menuItemSelected:(NSMenuItem*)item {
+    NSString* portKey = [[selectedElementId stringByAppendingString:@"."] stringByAppendingString:item.title];
+    [self createInputWithPortClass:[QCVirtualPort class] forKey:portKey attributes:nil];
+    for (QCPort* port in self.customInputPorts) {
+        if ([port.key isEqualToString:portKey]) {
+            [self.graph createConnectionFromPort:connectFromPort toPort:port];
+        }
+    }
+}
 
 - (void)stateUpdated {
     if (!self.userInfo[@".old-position"] && self.userInfo[@"position"]) {
-        // newly added
         id shared = [NSClassFromString(@"FBOrigamiAdditions") performSelector:@selector(sharedAdditions)];
         QCPatchView* view = [shared performSelector:@selector(patchView)];
         

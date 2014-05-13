@@ -98,6 +98,8 @@
     view.start = [self convertPoint:fp16 toView:[STAConnectionTrackingView sharedView]];
     view.end = [self convertPoint:fp24 toView:[STAConnectionTrackingView sharedView]];
     [view setNeedsDisplay:YES];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"agConnectionStart" object:nil userInfo:@{@"fromPort": fp12}];
 }
 
 - (void)ag_drawNode:(id)fp8 bounds:(NSRect)fp12 {
@@ -106,7 +108,7 @@
         //NSLog(@"%.f %.f %.f %.f",fp12.origin.x, fp12.origin.y, fp12.size.width, fp12.size.height);
         STAWidgetPatch* patch = fp8;
         if (!patch.webView) {
-            NSRect frame = NSMakeRect(fp12.origin.x, fp12.origin.y + 50, 500, 500);
+            NSRect frame = NSMakeRect(fp12.origin.x, fp12.origin.y + 100, 500, 500);
             
             WebView* webView = [[WebView alloc] initWithFrame:frame];
             id path = [[NSBundle bundleForClass:[STAgatePrincipal class]] URLForResource:@"demo" withExtension:@"html" subdirectory:@"webview"];
@@ -127,7 +129,7 @@
             
             [self addSubview:webView];
         } else {
-            patch.webView.frame = NSMakeRect(fp12.origin.x, fp12.origin.y + 50, 500, 500);
+            patch.webView.frame = NSMakeRect(fp12.origin.x, fp12.origin.y + 100, 500, 500);
         }
         // NSLog(@"%@", [fp8 userInfo]);
     }

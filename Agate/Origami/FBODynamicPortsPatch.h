@@ -4,7 +4,6 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-#import "QCPatch.h"
 
 @class NSMutableDictionary;
 
@@ -13,7 +12,7 @@
     NSMutableDictionary *_existingPorts;
 }
 
-- (void).cxx_destruct;
+//- (void).cxx_destruct;
 - (void)setValue:(id)arg1 forPortNamed:(id)arg2;
 - (BOOL)removeOutputPortNamed:(id)arg1;
 - (BOOL)removeInputPortNamed:(id)arg1;

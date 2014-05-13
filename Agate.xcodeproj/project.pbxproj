@@ -18,6 +18,7 @@
 		18A3A2601920F84700230A08 /* QCPatchView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3A25F1920F84700230A08 /* QCPatchView+Addition.m */; };
 		18A3A2661921139A00230A08 /* GFGraphView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3A2651921139A00230A08 /* GFGraphView+Addition.m */; };
 		18A3A2691921169D00230A08 /* STAConnectionTrackingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3A2681921169D00230A08 /* STAConnectionTrackingView.m */; };
+		18A3A26D19221B9C00230A08 /* STAgateAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3A26C19221B9C00230A08 /* STAgateAdditions.m */; };
 		2AA2D25CB6824B1EAE7749CB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F958D97102F4A178411CE70 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,8 @@
 		18A3A2651921139A00230A08 /* GFGraphView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GFGraphView+Addition.m"; sourceTree = "<group>"; };
 		18A3A2671921169D00230A08 /* STAConnectionTrackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STAConnectionTrackingView.h; sourceTree = "<group>"; };
 		18A3A2681921169D00230A08 /* STAConnectionTrackingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAConnectionTrackingView.m; sourceTree = "<group>"; };
+		18A3A26B19221B9C00230A08 /* STAgateAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STAgateAdditions.h; sourceTree = "<group>"; };
+		18A3A26C19221B9C00230A08 /* STAgateAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAgateAdditions.m; sourceTree = "<group>"; };
 		5325EAB5E7444C9B973300E1 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		5F958D97102F4A178411CE70 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -215,6 +218,8 @@
 			children = (
 				18A3A2671921169D00230A08 /* STAConnectionTrackingView.h */,
 				18A3A2681921169D00230A08 /* STAConnectionTrackingView.m */,
+				18A3A26B19221B9C00230A08 /* STAgateAdditions.h */,
+				18A3A26C19221B9C00230A08 /* STAgateAdditions.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -335,6 +340,7 @@
 				18A3A2601920F84700230A08 /* QCPatchView+Addition.m in Sources */,
 				185C10EE191889F20035802C /* STAgatePrincipal.m in Sources */,
 				185C1139191894BF0035802C /* STAWidgetPatch.m in Sources */,
+				18A3A26D19221B9C00230A08 /* STAgateAdditions.m in Sources */,
 				18A3A2691921169D00230A08 /* STAConnectionTrackingView.m in Sources */,
 				18A3A2661921139A00230A08 /* GFGraphView+Addition.m in Sources */,
 			);

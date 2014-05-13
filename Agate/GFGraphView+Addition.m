@@ -85,6 +85,7 @@
     STAConnectionTrackingView* view = [STAConnectionTrackingView sharedView];
     view.plot = NO;
     [view setNeedsDisplay:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"agConnectionEnd" object:nil];
     return v;
 }
 @end
