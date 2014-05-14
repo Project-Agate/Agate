@@ -13,7 +13,6 @@
 {
 	QCStringPort *inputHTML;
 	QCStringPort *inputCSS;
-    QCStringPort *outputTextField;
 }
 
 @property (nonatomic, retain) WebView* webView;

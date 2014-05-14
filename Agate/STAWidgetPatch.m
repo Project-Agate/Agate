@@ -10,6 +10,7 @@
 #import "Origami/FBOrigamiAdditions.h"
 #import "STAConnectionTrackingView.h"
 #import "STAgateAdditions.h"
+#import "QCPatchView+Addition.h"
 
 
 @implementation STAWidgetPatch {
@@ -122,6 +123,7 @@
 - (void)menuItemSelected:(NSMenuItem*)item {
     NSString* portKey = [[selectedElementId stringByAppendingString:@"."] stringByAppendingString:item.title];
     [self createInputWithPortClass:[QCVirtualPort class] forKey:portKey attributes:nil];
+    [[STAgateAdditions patchView] setNeedsDisplayForNode:self];
     for (QCPort* port in self.customInputPorts) {
         if ([port.key isEqualToString:portKey]) {
             [self.graph createConnectionFromPort:connectFromPort toPort:port];
