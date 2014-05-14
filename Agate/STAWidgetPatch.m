@@ -95,20 +95,26 @@
         
         NSMenu *theMenu = [[NSMenu alloc] initWithTitle:@"Select Binding"];
         
+        NSMenuItem* sectionTitleItem = [[NSMenuItem alloc] initWithTitle:@"Events" action:nil keyEquivalent:@""];
+        [theMenu addItem:sectionTitleItem];
+        
         NSDictionary* dict = [selectedElement toDictionary];
-        for (NSInteger i = 0; i < [dict[@"events"] count]; i++) {
-            
-            [theMenu insertItemWithTitle:dict[@"events"][i] action:@selector(menuItemSelected:) keyEquivalent:@"" atIndex:i];
+        for (NSString* event in dict[@"events"]) {
+            NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:event action:@selector(menuItemSelected:) keyEquivalent:@""];
+            [item setTarget:self];
+            [item setIndentationLevel:1];
+            [theMenu addItem:item];
         }
         
         [theMenu insertItem:[NSMenuItem separatorItem] atIndex:theMenu.itemArray.count];
+        NSMenuItem* sectionTitleItem2 = [[NSMenuItem alloc] initWithTitle:@"Attributes" action:nil keyEquivalent:@""];
+        [theMenu addItem:sectionTitleItem2];
         
         for (NSString* attribute in dict[@"attributes"]) {
-            [theMenu insertItemWithTitle:attribute action:@selector(menuItemSelected:) keyEquivalent:@"" atIndex:[theMenu itemArray].count];
-        }
-        
-        for (NSMenuItem* item in theMenu.itemArray) {
+            NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:attribute action:@selector(menuItemSelected:) keyEquivalent:@""];
             [item setTarget:self];
+            [item setIndentationLevel:1];
+            [theMenu addItem:item];
         }
         
         NSPoint p = [[NSApp keyWindow] mouseLocationOutsideOfEventStream];
