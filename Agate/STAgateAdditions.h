@@ -13,5 +13,6 @@
 
 + (id)sharedInstance;
 + (QCPatchView*) patchView;
+- (void)addAgateMenu;
 
 @end
