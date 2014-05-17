@@ -23,6 +23,6 @@
 	<key>GFPlugIn</key>
 	<true/>
 	<key>NSPrincipalClass</key>
-	<string></string>
+	<string>STAgatePrincipal</string>
 </dict>
 </plist>
