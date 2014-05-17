@@ -10,9 +10,10 @@
 #import <Foundation/Foundation.h>
 
 @interface STAgateAdditions : NSObject
-
 + (id)sharedInstance;
 + (QCPatchView*) patchView;
+
+- (QCPatch*) currentPatch;
 - (void)addAgateMenu;
 
 @end

@@ -8,6 +8,8 @@
 
 #import "STAgateAdditions.h"
 #import "FBOrigamiAdditions.h"
+#import "NSObject+Addition.h"
+#import "STAWidgetPatch.h"
 
 @implementation STAgateAdditions
 
@@ -27,11 +29,17 @@
     return view;
 }
 
+- (QCPatch *)currentPatch {
+    id shared = [NSClassFromString(@"FBOrigamiAdditions") performSelector:@selector(sharedAdditions)];
+    return [shared performSelector:@selector(currentPatch)];
+}
+
 - (void)addAgateMenu {
     NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:@"Agate" action:nil keyEquivalent:@""];
     
     NSMenu* subMenu = [[NSMenu alloc] initWithTitle:@"Agate"];
     [subMenu addItemWithTitle:@"Compile" action:@selector(compile:) keyEquivalent:@""];
+    [[subMenu itemAtIndex:0] setTarget:self];
     
     [item setSubmenu:subMenu];
     
@@ -39,7 +47,16 @@
 }
 
 - (void)compile: (id) sender {
-    
+    QCPatch* cp = [[STAgateAdditions sharedInstance] currentPatch];
+    for (QCPatch* patch in cp.nodes) {
+        if ([patch isKindOfClass:[STAWidgetPatch class]]) {
+            
+        } else if ([patch isKindOfClass:NSClassFromString(@"QCJavaScript")]) {
+        
+        } else {
+            //Prompt user that compile cannot proceed
+        }
+    }
 }
 
 
