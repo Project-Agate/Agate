@@ -29,6 +29,7 @@
 /* Begin PBXFileReference section */
 		180957E61924ADE1008A293C /* STAActionPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STAActionPatch.h; sourceTree = "<group>"; };
 		180957E71924ADE1008A293C /* STAActionPatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAActionPatch.m; sourceTree = "<group>"; };
+		18468AE5192498B400F90480 /* STASerializableProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = STASerializableProtocol.h; sourceTree = "<group>"; };
 		18468AEA1924A39600F90480 /* NSObject+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSObject+Addition.h"; sourceTree = "<group>"; };
 		18468AEB1924A39600F90480 /* NSObject+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Addition.m"; sourceTree = "<group>"; };
 		185C10CE191886090035802C /* Agate.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Agate.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -236,6 +237,7 @@
 				18A3A2681921169D00230A08 /* STAConnectionTrackingView.m */,
 				18A3A26B19221B9C00230A08 /* STAgateAdditions.h */,
 				18A3A26C19221B9C00230A08 /* STAgateAdditions.m */,
+				18468AE5192498B400F90480 /* STASerializableProtocol.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
