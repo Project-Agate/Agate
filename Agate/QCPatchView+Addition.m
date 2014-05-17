@@ -51,27 +51,12 @@
     if ([fp8 isKindOfClass:[STAWidgetPatch class]]) {
         //NSLog(@"%.f %.f %.f %.f",fp12.origin.x, fp12.origin.y, fp12.size.width, fp12.size.height);
         STAWidgetPatch* patch = fp8;
-        if (!patch.webView) {
+        if (patch.webView.superview == nil) {
             NSRect frame = NSMakeRect(fp12.origin.x, fp12.origin.y + 100, 500, 500);
             
-            WebView* webView = [[WebView alloc] initWithFrame:frame];
-            id path = [[NSBundle bundleForClass:[STAgatePrincipal class]] URLForResource:@"demo" withExtension:@"html" subdirectory:@"webview"];
-            id html = [[NSString alloc] initWithContentsOfURL:path];
-            //[[webView mainFrame]loadRequest:[NSURLRequest requestWithURL:[[NSURL alloc] initWithString:@"http://www.facebook.com"]]];
-            [[self window] setAcceptsMouseMovedEvents:YES];
-            [[webView mainFrame] loadHTMLString:html baseURL:[[[NSBundle bundleForClass:[STAgatePrincipal class]] resourceURL] URLByAppendingPathComponent:@"webview"]];
-            patch.webView = webView;
-            JSGlobalContextRef ref = [[webView mainFrame] globalContext];
-            JSContext* context = [JSContext contextWithJSGlobalContextRef:ref];
-            //[context setExceptionHandler:^(JSContext *c, JSValue *v) {
+            patch.webView.frame = frame;
             
-            //}];
-            
-            //[context evaluateScript:@"Webview.startSelecting()"];
-            webView.UIDelegate = self;
-            webView.frameLoadDelegate = self;
-            
-            [self addSubview:webView];
+            [self addSubview:patch.webView];
         } else {
             patch.webView.frame = NSMakeRect(fp12.origin.x, fp12.origin.y + 100, 500, 500);
         }
@@ -79,10 +64,6 @@
     }
     //GFNode* node = fp8;
     //NSLog(@"%@ %.f %.f %.f %.f",node, fp12.origin.x, fp12.origin.y, fp12.size.width, fp12.size.height);
-}
-
-- (void)webView:(WebView *)sender mouseDidMoveOverElement:(NSDictionary *)elementInformation modifierFlags:(NSUInteger)modifierFlags {
-    NSLog(@"%@", elementInformation[@"WebElementDOMNode"]);
 }
 
 @end

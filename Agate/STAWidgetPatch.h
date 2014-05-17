@@ -10,11 +10,8 @@
 #import <WebKit/WebKit.h>
 
 @interface STAWidgetPatch : QCPatch
-{
-	QCStringPort *inputHTML;
-	QCStringPort *inputCSS;
-}
 
+@property (nonatomic, retain) NSString* htmlPath;
 @property (nonatomic, retain) WebView* webView;
 
 +(BOOL)isSafe;

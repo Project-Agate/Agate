@@ -38,6 +38,32 @@
 	return 0;
 }
 
++ (BOOL)canInstantiateWithFile:(NSString *)filePath {
+    return [[filePath pathExtension] isEqualToString:@"html"];
+}
+
++ (id)instantiateWithFile:(NSString *)filePath {
+    STAWidgetPatch* patch = [[[self class] alloc] initWithIdentifier:nil];
+    if (patch) {
+        patch.htmlPath = filePath;
+        
+        WebView* webView = [[WebView alloc] initWithFrame:NSZeroRect];
+        
+        [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[filePath stringByStandardizingPath]]]];
+        
+        patch.webView = webView;
+        //JSGlobalContextRef ref = [[webView mainFrame] globalContext];
+        //JSContext* context = [JSContext contextWithJSGlobalContextRef:ref];
+        //[context setExceptionHandler:^(JSContext *c, JSValue *v) {
+        
+        //}];
+        
+        //[context evaluateScript:@"Webview.startSelecting()"];
+    }
+    return patch;
+}
+
+
 -(id)initWithIdentifier:(id)identifier
 {
 	if(self = [super initWithIdentifier:identifier])
@@ -76,6 +102,14 @@
 
 - (void)setValue:(id)value forKey:(NSString *)key {
     
+}
+
+- (void)setWebView:(WebView *)webView {
+    if (webView != _webView) {
+        _webView = webView;
+        _webView.UIDelegate = self;
+        _webView.frameLoadDelegate = self;
+    }
 }
 
 - (void)connectionStarted: (id) sender {
@@ -157,6 +191,12 @@
         }
     }
     //NSLog(@"userinfo: %@", self.userInfo);
+}
+
+#pragma mark - WebView Delegate
+
+- (void)webView:(WebView *)sender mouseDidMoveOverElement:(NSDictionary *)elementInformation modifierFlags:(NSUInteger)modifierFlags {
+    //NSLog(@"%@", elementInformation[@"WebElementDOMNode"]);
 }
 
 
