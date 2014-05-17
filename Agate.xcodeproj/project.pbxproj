@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180957E81924ADE1008A293C /* STAActionPatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 180957E71924ADE1008A293C /* STAActionPatch.m */; };
 		18468AEC1924A39600F90480 /* NSObject+Addition.h in Sources */ = {isa = PBXBuildFile; fileRef = 18468AEA1924A39600F90480 /* NSObject+Addition.h */; };
 		18468AED1924A39600F90480 /* NSObject+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18468AEB1924A39600F90480 /* NSObject+Addition.m */; };
 		185C10D2191886090035802C /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185C10D1191886090035802C /* Quartz.framework */; };
@@ -26,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		180957E61924ADE1008A293C /* STAActionPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STAActionPatch.h; sourceTree = "<group>"; };
+		180957E71924ADE1008A293C /* STAActionPatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAActionPatch.m; sourceTree = "<group>"; };
 		18468AEA1924A39600F90480 /* NSObject+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSObject+Addition.h"; sourceTree = "<group>"; };
 		18468AEB1924A39600F90480 /* NSObject+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Addition.m"; sourceTree = "<group>"; };
 		185C10CE191886090035802C /* Agate.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Agate.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,6 +206,8 @@
 		185C112D191891FF0035802C /* Patches */ = {
 			isa = PBXGroup;
 			children = (
+				180957E61924ADE1008A293C /* STAActionPatch.h */,
+				180957E71924ADE1008A293C /* STAActionPatch.m */,
 				185C1136191894BF0035802C /* STAWidgetPatch.h */,
 				185C1137191894BF0035802C /* STAWidgetPatch.m */,
 			);
@@ -353,6 +358,7 @@
 				18A3A273192329E200230A08 /* QCPatch+Addition.m in Sources */,
 				185C1139191894BF0035802C /* STAWidgetPatch.m in Sources */,
 				18A3A26D19221B9C00230A08 /* STAgateAdditions.m in Sources */,
+				180957E81924ADE1008A293C /* STAActionPatch.m in Sources */,
 				18A3A2691921169D00230A08 /* STAConnectionTrackingView.m in Sources */,
 				18468AEC1924A39600F90480 /* NSObject+Addition.h in Sources */,
 				18468AED1924A39600F90480 /* NSObject+Addition.m in Sources */,
