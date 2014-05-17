@@ -11,72 +11,16 @@
 #import "STAgatePrincipal.h"
 #import "GFGraphView+Addition.h"
 #import "STAConnectionTrackingView.h"
+#import "NSObject+Addition.h"
 
 @implementation QCPatchView (Addition)
 
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [[self class] swizzleDrawConnection];
-        [[self class] swizzleDrawNode];
+        [self ag_swizzleInstanceMethod:@selector(_drawConnection:fromPort:point:toPoint:)];
+        [self ag_swizzleInstanceMethod:@selector(_drawNode:bounds:)];
     });
-}
-
-+ (void)swizzleDrawNode {
-    Class class = [self class];
-    
-    // When swizzling a class method, use the following:
-    // Class class = object_getClass((id)self);
-    
-    SEL originalSelector = @selector(_drawNode:bounds:);
-    SEL swizzledSelector = @selector(ag_drawNode:bounds:);
-    
-    Method originalMethod = class_getInstanceMethod(class, originalSelector);
-    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
-    
-    BOOL didAddMethod =
-    class_addMethod(class,
-                    originalSelector,
-                    method_getImplementation(swizzledMethod),
-                    method_getTypeEncoding(swizzledMethod));
-    
-    if (didAddMethod) {
-        class_replaceMethod(class,
-                            swizzledSelector,
-                            method_getImplementation(originalMethod),
-                            method_getTypeEncoding(originalMethod));
-    } else {
-        method_exchangeImplementations(originalMethod, swizzledMethod);
-    }
-    
-}
-
-+ (void)swizzleDrawConnection {
-    Class class = [self class];
-    
-    // When swizzling a class method, use the following:
-    // Class class = object_getClass((id)self);
-    
-    SEL originalSelector = @selector(_drawConnection:fromPort:point:toPoint:);
-    SEL swizzledSelector = @selector(ag_drawConnection:fromPort:point:toPoint:);
-    
-    Method originalMethod = class_getInstanceMethod(class, originalSelector);
-    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
-    
-    BOOL didAddMethod =
-    class_addMethod(class,
-                    originalSelector,
-                    method_getImplementation(swizzledMethod),
-                    method_getTypeEncoding(swizzledMethod));
-    
-    if (didAddMethod) {
-        class_replaceMethod(class,
-                            swizzledSelector,
-                            method_getImplementation(originalMethod),
-                            method_getTypeEncoding(originalMethod));
-    } else {
-        method_exchangeImplementations(originalMethod, swizzledMethod);
-    }
 }
 
 - (void)viewDidMoveToWindow {
@@ -86,7 +30,7 @@
     [patchEditorView addSubview:trackingView];
 }
 
-- (void)ag_drawConnection:(id)fp8 fromPort:(id)fp12 point:(NSPoint)fp16 toPoint:(NSPoint)fp24 {
+- (void)ag__drawConnection:(id)fp8 fromPort:(id)fp12 point:(NSPoint)fp16 toPoint:(NSPoint)fp24 {
     //[self ag_drawConnection:fp8 fromPort:fp12 point:fp16 toPoint:fp24];
     
     NSPoint p = [self.window mouseLocationOutsideOfEventStream];
@@ -102,8 +46,8 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"agConnectionStart" object:nil userInfo:@{@"fromPort": fp12}];
 }
 
-- (void)ag_drawNode:(id)fp8 bounds:(NSRect)fp12 {
-    [self ag_drawNode:fp8 bounds:fp12];
+- (void)ag__drawNode:(id)fp8 bounds:(NSRect)fp12 {
+    [self ag__drawNode:fp8 bounds:fp12];
     if ([fp8 isKindOfClass:[STAWidgetPatch class]]) {
         //NSLog(@"%.f %.f %.f %.f",fp12.origin.x, fp12.origin.y, fp12.size.width, fp12.size.height);
         STAWidgetPatch* patch = fp8;
