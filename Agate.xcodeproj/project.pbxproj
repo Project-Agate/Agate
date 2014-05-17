@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		180957E81924ADE1008A293C /* STAActionPatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 180957E71924ADE1008A293C /* STAActionPatch.m */; };
-		18468AEC1924A39600F90480 /* NSObject+Addition.h in Sources */ = {isa = PBXBuildFile; fileRef = 18468AEA1924A39600F90480 /* NSObject+Addition.h */; };
 		18468AED1924A39600F90480 /* NSObject+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18468AEB1924A39600F90480 /* NSObject+Addition.m */; };
 		185C10D2191886090035802C /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185C10D1191886090035802C /* Quartz.framework */; };
 		185C10D4191886090035802C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185C10D3191886090035802C /* Cocoa.framework */; };
@@ -362,7 +361,6 @@
 				18A3A26D19221B9C00230A08 /* STAgateAdditions.m in Sources */,
 				180957E81924ADE1008A293C /* STAActionPatch.m in Sources */,
 				18A3A2691921169D00230A08 /* STAConnectionTrackingView.m in Sources */,
-				18468AEC1924A39600F90480 /* NSObject+Addition.h in Sources */,
 				18468AED1924A39600F90480 /* NSObject+Addition.m in Sources */,
 				18A3A2661921139A00230A08 /* GFGraphView+Addition.m in Sources */,
 			);
