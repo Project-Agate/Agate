@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18468AEC1924A39600F90480 /* NSObject+Addition.h in Sources */ = {isa = PBXBuildFile; fileRef = 18468AEA1924A39600F90480 /* NSObject+Addition.h */; };
+		18468AED1924A39600F90480 /* NSObject+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18468AEB1924A39600F90480 /* NSObject+Addition.m */; };
 		185C10D2191886090035802C /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185C10D1191886090035802C /* Quartz.framework */; };
 		185C10D4191886090035802C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185C10D3191886090035802C /* Cocoa.framework */; };
 		185C10DE191886090035802C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 185C10DC191886090035802C /* InfoPlist.strings */; };
@@ -24,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18468AEA1924A39600F90480 /* NSObject+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSObject+Addition.h"; sourceTree = "<group>"; };
+		18468AEB1924A39600F90480 /* NSObject+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Addition.m"; sourceTree = "<group>"; };
 		185C10CE191886090035802C /* Agate.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Agate.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		185C10D1191886090035802C /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		185C10D3191886090035802C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -214,6 +218,8 @@
 				18A3A25F1920F84700230A08 /* QCPatchView+Addition.m */,
 				18A3A271192329E200230A08 /* QCPatch+Addition.h */,
 				18A3A272192329E200230A08 /* QCPatch+Addition.m */,
+				18468AEA1924A39600F90480 /* NSObject+Addition.h */,
+				18468AEB1924A39600F90480 /* NSObject+Addition.m */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -348,6 +354,8 @@
 				185C1139191894BF0035802C /* STAWidgetPatch.m in Sources */,
 				18A3A26D19221B9C00230A08 /* STAgateAdditions.m in Sources */,
 				18A3A2691921169D00230A08 /* STAConnectionTrackingView.m in Sources */,
+				18468AEC1924A39600F90480 /* NSObject+Addition.h in Sources */,
+				18468AED1924A39600F90480 /* NSObject+Addition.m in Sources */,
 				18A3A2661921139A00230A08 /* GFGraphView+Addition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
