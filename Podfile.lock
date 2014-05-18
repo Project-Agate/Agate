@@ -1,4 +1,6 @@
 PODS:
+  - NSString+Ruby (1.1)
+  - ObjectiveSugar (1.1.0)
   - ReactiveCocoa (2.3):
     - ReactiveCocoa/UI
   - ReactiveCocoa/Core (2.3):
@@ -8,9 +10,13 @@ PODS:
     - ReactiveCocoa/Core
 
 DEPENDENCIES:
+  - NSString+Ruby
+  - ObjectiveSugar
   - ReactiveCocoa
 
 SPEC CHECKSUMS:
+  NSString+Ruby: 00549a8f8903f62ce4aa17da96b9b5fd950e96b4
+  ObjectiveSugar: fed588577bcf9733546aeaa089de444e4bab9a52
   ReactiveCocoa: dde7b11a14954edf789e7343b2c32e595caabd01
 
 COCOAPODS: 0.32.1
