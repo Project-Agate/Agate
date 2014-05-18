@@ -16,5 +16,6 @@
 - (QCPatch*) currentPatch;
 - (void)addAgateMenu;
 - (NSURL*) bundleURL;
+- (NSString*) generateUID;
 
 @end

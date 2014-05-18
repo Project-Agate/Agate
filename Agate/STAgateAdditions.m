@@ -12,6 +12,12 @@
 #import "STAWidgetPatch.h"
 #import "STAgatePrincipal.h"
 
+@interface STAgateAdditions ()
+
+@property (nonatomic, strong) NSMutableSet* generatedUIDs;
+
+@end
+
 @implementation STAgateAdditions
 
 + (instancetype)sharedInstance {
@@ -30,6 +36,14 @@
     return view;
 }
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.generatedUIDs = [NSMutableSet set];
+    }
+    return self;
+}
+
 - (QCPatch *)currentPatch {
     id shared = [NSClassFromString(@"FBOrigamiAdditions") performSelector:@selector(sharedAdditions)];
     return [shared performSelector:@selector(currentPatch)];
@@ -37,6 +51,27 @@
 
 - (NSURL *)bundleURL {
     return [[NSBundle bundleForClass:[STAgatePrincipal class]] resourceURL];
+}
+
+- (NSString *)generateUID {
+    NSString* candidate = [self randomStringWithLength:16];
+    while ([self.generatedUIDs containsObject:candidate]) {
+        candidate = [self randomStringWithLength:16];
+    }
+    [self.generatedUIDs addObject:candidate];
+    
+    return candidate;
+}
+
+-(NSString *) randomStringWithLength: (int) len {
+    NSString *letters = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    NSMutableString *randomString = [NSMutableString stringWithCapacity: len];
+    
+    for (int i=0; i<len; i++) {
+        [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random() % [letters length]]];
+    }
+    
+    return randomString;
 }
 
 - (void)addAgateMenu {
