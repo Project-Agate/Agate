@@ -15,5 +15,6 @@
 
 - (QCPatch*) currentPatch;
 - (void)addAgateMenu;
+- (NSURL*) bundleURL;
 
 @end

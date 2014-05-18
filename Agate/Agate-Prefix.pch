@@ -8,4 +8,6 @@
     #import <SkankySDK/SkankySDK.h>
     #import <Cocoa/Cocoa.h>
     #import <ReactiveCocoa/ReactiveCocoa.h>
+    #import <ObjectiveSugar/ObjectiveSugar.h>
+    #import <NSString+Ruby/NSString+Ruby.h>
 #endif

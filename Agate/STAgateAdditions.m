@@ -10,6 +10,7 @@
 #import "FBOrigamiAdditions.h"
 #import "NSObject+Addition.h"
 #import "STAWidgetPatch.h"
+#import "STAgatePrincipal.h"
 
 @implementation STAgateAdditions
 
@@ -32,6 +33,10 @@
 - (QCPatch *)currentPatch {
     id shared = [NSClassFromString(@"FBOrigamiAdditions") performSelector:@selector(sharedAdditions)];
     return [shared performSelector:@selector(currentPatch)];
+}
+
+- (NSURL *)bundleURL {
+    return [[NSBundle bundleForClass:[STAgatePrincipal class]] resourceURL];
 }
 
 - (void)addAgateMenu {
