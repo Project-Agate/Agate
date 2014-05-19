@@ -190,14 +190,16 @@
     
     [context evaluateScript:@"var ele = document.createElement('script')"];
     [context evaluateScript:[[@"ele.setAttribute('src','" stringByAppendingString:jqueryPath] stringByAppendingString:@"')"]];
-    [context evaluateScript:@"document.body.appendChild(ele)"];
     
     
     // Injecting Webview.js
     NSString* webviewPath = [[[[STAgateAdditions sharedInstance] bundleURL] path] stringByAppendingString:@"/webview/target/Webview.js"];
     
-    [context evaluateScript:@"var ele = document.createElement('script')"];
-    [context evaluateScript:[[@"ele.setAttribute('src','" stringByAppendingString:webviewPath] stringByAppendingString:@"')"]];
+    [context evaluateScript:@"var ele2 = document.createElement('script')"];
+    [context evaluateScript:[[@"ele2.setAttribute('src','" stringByAppendingString:webviewPath] stringByAppendingString:@"')"]];
+    
+    [context evaluateScript:@"ele.onload = function(){document.body.appendChild(ele2)}"];
+    
     [context evaluateScript:@"document.body.appendChild(ele)"];
 }
 
