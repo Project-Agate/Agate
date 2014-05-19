@@ -53,10 +53,10 @@
         
         WebView* webView = [[WebView alloc] initWithFrame:NSZeroRect];
         
-        //[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[filePath stringByStandardizingPath]]]];
-        NSURL* demo = [[[[STAgateAdditions sharedInstance] bundleURL] URLByAppendingPathComponent:@"webview"] URLByAppendingPathComponent:@"demo.html"];
+        [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[filePath stringByStandardizingPath]]]];
+        //NSURL* demo = [[[[STAgateAdditions sharedInstance] bundleURL] URLByAppendingPathComponent:@"webview"] URLByAppendingPathComponent:@"demo.html"];
         
-        [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:demo]];
+        //[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:demo]];
         
         patch.webView = webView;
     }
@@ -137,9 +137,6 @@
 #pragma mark - Custom Notification Handler
 
 - (void)connectionStarted: (id) sender {
-    JSGlobalContextRef ref = [[self.webView mainFrame] globalContext];
-    JSContext* context = [JSContext contextWithJSGlobalContextRef:ref];
-    [context evaluateScript:@"Webview.startSelecting()"];
     self.connectFromPort = [sender userInfo][@"fromPort"];
 }
 
@@ -184,29 +181,24 @@
 }
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
     JSContext* context = sender.ag_jsContext;
-    [context evaluateScript:@"Webview.startSelecting()"];
-    //[context setExceptionHandler:^(JSContext *c, JSValue *v) {
-    //    NSLog(@"Exception: %@", v);
-    //}];
+    [context setExceptionHandler:^(JSContext *c, JSValue *v) {
+        NSLog(@"Exception: %@", v);
+    }];
+    
+    // Injecting JQuery
+    NSString* jqueryPath = [[[[STAgateAdditions sharedInstance] bundleURL] path] stringByAppendingString:@"/webview/lib/jquery.min.js"];
+    
+    [context evaluateScript:@"var ele = document.createElement('script')"];
+    [context evaluateScript:[[@"ele.setAttribute('src','" stringByAppendingString:jqueryPath] stringByAppendingString:@"')"]];
+    [context evaluateScript:@"document.body.appendChild(ele)"];
     
     
-    //NSString* jqueryPath = [[[[STAgateAdditions sharedInstance] bundleURL] path] stringByAppendingString:@"/webview/lib/jquery.min.js"];
+    // Injecting Webview.js
+    NSString* webviewPath = [[[[STAgateAdditions sharedInstance] bundleURL] path] stringByAppendingString:@"/webview/target/Webview.js"];
     
-    //[context evaluateScript:@"var ele = document.createElement('script')"];
-    //[context evaluateScript:[[@"ele.setAttribute('src','" stringByAppendingString:jqueryPath] stringByAppendingString:@"')"]];
-    //[context evaluateScript:@"document.body.appendChild(ele)"];
-    
-    
-    //NSString* webviewPath = [[[[STAgateAdditions sharedInstance] bundleURL] path] stringByAppendingString:@"/webview/target/Webview.js"];
-    
-    //[context evaluateScript:@"var ele = document.createElement('script')"];
-    //[context evaluateScript:[[@"ele.setAttribute('src','" stringByAppendingString:webviewPath] stringByAppendingString:@"')"]];
-    //[context evaluateScript:@"document.body.appendChild(ele)"];
-    
-    //JSValue* webviewLib = [context evaluateScript:@"document.createElement('script')"];
-    //[jqueryLib[@"setAttribute"] callWithArguments:@[@"src", webviewPath]];
-    
-    //[context[@"document"][@"body"][@"appendChild"] callWithArguments:@[webviewLib]];
+    [context evaluateScript:@"var ele = document.createElement('script')"];
+    [context evaluateScript:[[@"ele.setAttribute('src','" stringByAppendingString:webviewPath] stringByAppendingString:@"')"]];
+    [context evaluateScript:@"document.body.appendChild(ele)"];
 }
 
 - (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element defaultMenuItems:(NSArray *)defaultMenuItems {
