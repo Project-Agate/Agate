@@ -138,6 +138,10 @@
     //NSLog(@"userinfo: %@", self.userInfo);
 }
 
+- (void)nodeWillRemoveFromGraph {
+    [self.webView removeFromSuperview];
+}
+
 #pragma mark - STASerializableProtocol
 
 - (NSString *)uid {
