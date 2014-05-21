@@ -52,13 +52,13 @@
         //NSLog(@"%.f %.f %.f %.f",fp12.origin.x, fp12.origin.y, fp12.size.width, fp12.size.height);
         STAWidgetPatch* patch = fp8;
         if (patch.webView.superview == nil) {
-            NSRect frame = NSMakeRect(fp12.origin.x, fp12.origin.y + 100, 500, 500);
+            NSRect frame = NSMakeRect(fp12.origin.x, fp12.origin.y + 70, 700, 500);
             
             patch.webView.frame = frame;
             
             [self addSubview:patch.webView];
         } else {
-            patch.webView.frame = NSMakeRect(fp12.origin.x, fp12.origin.y + 100, 500, 500);
+            patch.webView.frame = NSMakeRect(fp12.origin.x, fp12.origin.y + 70, 700, 500);
         }
         // NSLog(@"%@", [fp8 userInfo]);
     }
