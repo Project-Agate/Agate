@@ -12,6 +12,7 @@ In short, it's a quartz composer plugin for web developer.
 * Xcode 5
 * Quartz Composer
 * Facebook Origami
+* VisualReactiveAPI (https://github.com/raincole/VisualReactiveAPI)
 
 ## How to use?
 
@@ -21,7 +22,7 @@ In short, it's a quartz composer plugin for web developer.
 
 ## Disclaimer
 
-** THIS IS CURRENTLY UNSTABLE **, use it at your own risk. 
+**THIS IS CURRENTLY UNSTABLE**, use it at your own risk. 
 
 ## Roadmap
 
