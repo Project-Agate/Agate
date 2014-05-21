@@ -9,11 +9,13 @@
 #import "STAgatePrincipal.h"
 #import "STAWidgetPatch.h"
 #import "STAgateAdditions.h"
+#import "STAConstantPatch.h"
 
 @implementation STAgatePrincipal
 
 + (void)registerNodesWithManager:(GFNodeManager *)manager {
     [manager registerNodeWithClass:[STAWidgetPatch class]];
+    [manager registerNodeWithClass:[STAConstantPatch class]];
     [[STAgateAdditions sharedInstance] addAgateMenu];
 }
 

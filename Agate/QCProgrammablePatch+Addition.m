@@ -9,6 +9,7 @@
 #import "QCProgrammablePatch+Addition.h"
 #import "STAgateAdditions.h"
 #import "STAWidgetPatch.h"
+#import "STAConstantPatch.h"
 
 @implementation QCProgrammablePatch (Addition)
 
@@ -44,7 +45,7 @@ static char kAssociatedObjectKey;
     for (QCPort* port in self.inputPorts) {
         if ([port connectedPort]) {
             QCPort* originalPort = [port connectedPort];
-            if ([[originalPort node] isKindOfClass:[QCProgrammablePatch class]]) {
+            if ([[originalPort node] isKindOfClass:[QCProgrammablePatch class]] || [[originalPort node] isKindOfClass:[STAConstantPatch class]]) {
                 id param = @{@"name": [port key], @"valueRef": [(id<STASerializableProtocol>)[originalPort node] uid]};
                 [parameters addObject:param];
             } else if ([[originalPort node] isKindOfClass:[STAWidgetPatch class]]) {

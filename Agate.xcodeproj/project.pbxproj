@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		180957E81924ADE1008A293C /* STAActionPatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 180957E71924ADE1008A293C /* STAActionPatch.m */; };
+		183F9D58192C462A00239DE1 /* STAConstantPatch.xml in Resources */ = {isa = PBXBuildFile; fileRef = 183F9D57192C462A00239DE1 /* STAConstantPatch.xml */; };
+		183F9D5C192C465D00239DE1 /* STAConstantPatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 183F9D5A192C465D00239DE1 /* STAConstantPatch.m */; };
 		18468AED1924A39600F90480 /* NSObject+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18468AEB1924A39600F90480 /* NSObject+Addition.m */; };
 		185C10D2191886090035802C /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185C10D1191886090035802C /* Quartz.framework */; };
 		185C10D4191886090035802C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185C10D3191886090035802C /* Cocoa.framework */; };
@@ -32,6 +34,9 @@
 /* Begin PBXFileReference section */
 		180957E61924ADE1008A293C /* STAActionPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STAActionPatch.h; sourceTree = "<group>"; };
 		180957E71924ADE1008A293C /* STAActionPatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAActionPatch.m; sourceTree = "<group>"; };
+		183F9D57192C462A00239DE1 /* STAConstantPatch.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = STAConstantPatch.xml; sourceTree = "<group>"; };
+		183F9D59192C465D00239DE1 /* STAConstantPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = STAConstantPatch.h; sourceTree = "<group>"; };
+		183F9D5A192C465D00239DE1 /* STAConstantPatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAConstantPatch.m; sourceTree = "<group>"; };
 		18468AE5192498B400F90480 /* STASerializableProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = STASerializableProtocol.h; sourceTree = "<group>"; };
 		18468AEA1924A39600F90480 /* NSObject+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSObject+Addition.h"; sourceTree = "<group>"; };
 		18468AEB1924A39600F90480 /* NSObject+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Addition.m"; sourceTree = "<group>"; };
@@ -177,6 +182,7 @@
 				185C10DC191886090035802C /* InfoPlist.strings */,
 				185C10E2191886090035802C /* Agate-Prefix.pch */,
 				185C113A191895BF0035802C /* STAWidgetPatch.xml */,
+				183F9D57192C462A00239DE1 /* STAConstantPatch.xml */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -222,6 +228,8 @@
 				180957E71924ADE1008A293C /* STAActionPatch.m */,
 				185C1136191894BF0035802C /* STAWidgetPatch.h */,
 				185C1137191894BF0035802C /* STAWidgetPatch.m */,
+				183F9D59192C465D00239DE1 /* STAConstantPatch.h */,
+				183F9D5A192C465D00239DE1 /* STAConstantPatch.m */,
 			);
 			name = Patches;
 			sourceTree = "<group>";
@@ -317,6 +325,7 @@
 			files = (
 				18A3A250191D124C00230A08 /* webview in Resources */,
 				185C113B191895BF0035802C /* STAWidgetPatch.xml in Resources */,
+				183F9D58192C462A00239DE1 /* STAConstantPatch.xml in Resources */,
 				185C10DE191886090035802C /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,6 +387,7 @@
 				185C10EE191889F20035802C /* STAgatePrincipal.m in Sources */,
 				18A3A273192329E200230A08 /* QCPatch+Addition.m in Sources */,
 				185C1139191894BF0035802C /* STAWidgetPatch.m in Sources */,
+				183F9D5C192C465D00239DE1 /* STAConstantPatch.m in Sources */,
 				18BFF8871929BD29008BC78B /* QCProgrammablePatch+Addition.m in Sources */,
 				18A3A26D19221B9C00230A08 /* STAgateAdditions.m in Sources */,
 				18BFF88F1929E129008BC78B /* STAEventPort.m in Sources */,
