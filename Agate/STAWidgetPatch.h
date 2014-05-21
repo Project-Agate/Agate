@@ -8,8 +8,9 @@
 
 #import "STAWidgetPatch.h"
 #import <WebKit/WebKit.h>
+#import "STASerializableProtocol.h"
 
-@interface STAWidgetPatch : QCPatch
+@interface STAWidgetPatch : QCPatch <STASerializableProtocol>
 
 @property (nonatomic, retain) NSString* htmlPath;
 @property (nonatomic, retain) WebView* webView;
@@ -24,5 +25,6 @@
 -(void)enable:(QCOpenGLContext*)context;
 -(void)disable:(QCOpenGLContext*)context;
 -(BOOL)execute:(QCOpenGLContext*)context time:(double)time arguments:(NSDictionary*)arguments;
+-(id)widgetDictionary;
 
 @end

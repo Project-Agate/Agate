@@ -11,6 +11,10 @@
 #import "NSObject+Addition.h"
 #import "STAWidgetPatch.h"
 #import "STAgatePrincipal.h"
+#import "QCProgrammablePatch+Addition.h"
+#import <AFNetworking/AFNetworking.h>
+
+NSString* const kAgateServerEndpoint = @"http://localhost:3000";
 
 @interface STAgateAdditions ()
 
@@ -88,15 +92,47 @@
 
 - (void)compile: (id) sender {
     QCPatch* cp = [[STAgateAdditions sharedInstance] currentPatch];
+    
+    NSMutableDictionary* program = [NSMutableDictionary dictionary];
+    program[@"widgets"] = [NSMutableDictionary dictionary];
+    program[@"signals"] = [NSMutableDictionary dictionary];
+    
     for (QCPatch* patch in cp.nodes) {
-        if ([patch isKindOfClass:[STAWidgetPatch class]]) {
-            
-        } else if ([patch isKindOfClass:NSClassFromString(@"QCJavaScript")]) {
+        NSArray* signals = [(id<STASerializableProtocol>)patch agateSignals];
+        for (id sig in signals) {
+            program[@"signals"][sig[@"uid"]] = sig;
+        }
         
-        } else {
-            //Prompt user that compile cannot proceed
+        if ([patch isKindOfClass:[STAWidgetPatch class]]) {
+            id widget = [(STAWidgetPatch*)patch widgetDictionary];
+            program[@"widgets"][widget[@"uid"]] = widget;
         }
     }
+    
+    NSLog(@"%@", program);
+
+    [self postToServer:program];
+}
+
+- (void)postToServer:(id) program {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = program;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager POST:[kAgateServerEndpoint stringByAppendingPathComponent:@"compile"] parameters:parameters success:^(AFHTTPRequestOperation *operation, NSData* responseObject) {
+        NSString* path = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        [[NSWorkspace sharedWorkspace] openURL:[[NSURL URLWithString:kAgateServerEndpoint] URLByAppendingPathComponent:path]];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert addButtonWithTitle:@"OK"];
+        [alert setInformativeText:[error localizedDescription]];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert runModal];
+        [alert release];
+        
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 

@@ -12,11 +12,15 @@
 #import "STAgateAdditions.h"
 #import "QCPatchView+Addition.h"
 #import "WebView+Addition.h"
+#import "STAEventPort.h"
+#import "STAAttributePort.h"
 
 @interface STAWidgetPatch ()
 
 @property (nonatomic, strong) NSString* selectedElementId;
+@property (nonatomic, strong) NSDictionary* selectedElementDetail;
 @property (nonatomic, strong) QCPort* connectFromPort;
+@property (nonatomic, strong) NSString* uid;
 
 @end
 
@@ -49,7 +53,7 @@
 + (id)instantiateWithFile:(NSString *)filePath {
     STAWidgetPatch* patch = [[[self class] alloc] initWithIdentifier:nil];
     if (patch) {
-        patch.htmlPath = filePath;
+        patch.htmlPath = [filePath stringByStandardizingPath];
         
         WebView* webView = [[WebView alloc] initWithFrame:NSZeroRect];
         
@@ -132,6 +136,85 @@
         }
     }
     //NSLog(@"userinfo: %@", self.userInfo);
+}
+
+#pragma mark - STASerializableProtocol
+
+- (NSString *)uid {
+    if (!_uid) {
+        _uid = [[STAgateAdditions sharedInstance] generateUID];
+    }
+    return _uid;
+}
+
+- (NSArray *)agateSignals {
+    NSMutableArray* signals = [NSMutableArray array];
+    
+    for (STAAttributePort* port in self.inputPorts) {
+        if (![port connectedPort]) continue;
+        NSAssert([[[port connectedPort] node] conformsToProtocol:@protocol(STASerializableProtocol)], @"The original port of %@ should be serializable", self);
+        
+        id attribute = @{
+                         @"type": @"wAttribute",
+                         @"uid": port.uid,
+                         @"elementRef": [@"#VRAC-": port.elementId, nil],
+                         @"signalRef": [(id<STASerializableProtocol>)[[port connectedPort] node] uid],
+                         @"name": port.name
+                       };
+        [signals addObject:attribute];
+    }
+    
+    NSArray* eventPorts = [self.outputPorts select:^BOOL(id object) {
+        return ([object class] == [STAEventPort class]);
+    }];
+    
+    NSArray* r_attributePorts = [self.outputPorts select:^BOOL(id object) {
+        return ([object class] == [STAAttributePort class]);
+    }];
+    
+    for (STAEventPort* port in eventPorts) {
+        id event = @{
+                     @"type": @"event",
+                     @"uid": port.uid,
+                     @"elementRef": [@"#VRAC-": port.elementId, nil],
+                     @"eventType": port.eventType,
+                     };
+        [signals addObject:event];
+    }
+    
+    for (STAAttributePort* port in r_attributePorts) {
+        id attribute = @{
+                        @"type": @"rAttribute",
+                        @"uid": port.uid,
+                        @"elementRef": [@"#VRAC-": port.elementId, nil],
+                        @"name": port.name,
+                    };
+        [signals addObject:attribute];
+    }
+    
+    NSMutableArray* ports = [NSMutableArray array];
+    
+    if (self.inputPorts) [ports addObjectsFromArray:self.inputPorts];
+    if (self.outputPorts) [ports addObjectsFromArray:self.outputPorts];
+    
+    for (QCPort* port in ports) {
+        id element = @{
+                       @"uid": [@"#VRAC-": [(id)port elementId], nil],
+                       @"widgetRef": self.uid,
+                       @"selector": [@"#VRAC-": [(id)port elementId], nil],
+                    };
+        [signals addObject:element];
+    }
+    
+    return signals;
+}
+
+- (id)widgetDictionary {
+    NSDictionary* widget = @{
+                             @"uid": self.uid,
+                             @"htmlPath": self.htmlPath
+                             };
+    return widget;
 }
 
 #pragma mark - Custom Notification Handler
@@ -217,13 +300,16 @@
         [items addObject:sectionTitleItem];
         
         NSDictionary* dict = [selectedElement toDictionary];
+        
+        self.selectedElementDetail = dict;
+        
         for (NSString* event in dict[@"events"]) {
             NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:event action:@selector(toggleOutputPort:) keyEquivalent:@""];
             [item setTarget:self];
             [item setIndentationLevel:1];
             
             QCPort* thePort = [self.customOutputPorts detect:^BOOL(QCPort* port) {
-                return [port.key isEqualToString:[self.selectedElementId: @".", event, nil]];
+                return [port.key isEqualToString:[self.selectedElementId: @"->", event, nil]];
             }];
             
             if (thePort) {
@@ -269,7 +355,10 @@
 
 - (void)menuItemSelected:(NSMenuItem*)item {
     NSString* portKey = [[self.selectedElementId stringByAppendingString:@"."] stringByAppendingString:item.title];
-    [self createInputWithPortClass:[QCVirtualPort class] forKey:portKey attributes:nil];
+    STAAttributePort* createdPort = [self createInputWithPortClass:[STAAttributePort class] forKey:portKey attributes:nil];
+    createdPort.elementId = self.selectedElementId;
+    createdPort.name = item.title;
+    
     [[STAgateAdditions patchView] setNeedsDisplayForNode:self];
     for (QCPort* port in self.customInputPorts) {
         if ([port.key isEqualToString:portKey]) {
@@ -279,7 +368,7 @@
 }
 
 - (void)toggleOutputPort: (NSMenuItem*) item {
-    NSString* portKey = [self.selectedElementId:@".", item.title, nil];
+    NSString* portKey = [self.selectedElementId:@"->", item.title, nil];
     
     QCPort* thePort = [self.customOutputPorts detect:^BOOL(QCPort* port) {
         return [port.key isEqualToString:portKey];
@@ -288,7 +377,15 @@
     if (thePort) {
         [self deleteOutputPortForKey:portKey];
     } else {
-        [self createOutputWithPortClass:[QCVirtualPort class] forKey:portKey attributes:nil];
+        if ([self.selectedElementDetail[@"events"] containsObject:item.title]) {
+            STAEventPort* createdPort =[self createOutputWithPortClass:[STAEventPort class] forKey:portKey attributes:nil];
+            createdPort.elementId = self.selectedElementId;
+            createdPort.eventType = item.title;
+        } else {
+            STAAttributePort* createdPort = [self createOutputWithPortClass:[STAAttributePort class] forKey:portKey attributes:nil];
+            createdPort.elementId = self.selectedElementId;
+            createdPort.name = item.title;
+        }
     }
     
     [[STAgateAdditions patchView] setNeedsDisplay:YES];

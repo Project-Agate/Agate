@@ -10,8 +10,9 @@
 
 @protocol STASerializableProtocol <NSObject>
 
-@required
+@optional
 
+- (NSString*) uid;
 - (NSArray*) agateSignals;
 
 @end

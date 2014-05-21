@@ -23,6 +23,9 @@
 		18A3A26D19221B9C00230A08 /* STAgateAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3A26C19221B9C00230A08 /* STAgateAdditions.m */; };
 		18A3A273192329E200230A08 /* QCPatch+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3A272192329E200230A08 /* QCPatch+Addition.m */; };
 		18BFF8831928EFD6008BC78B /* WebView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BFF8811928EFD6008BC78B /* WebView+Addition.m */; };
+		18BFF8871929BD29008BC78B /* QCProgrammablePatch+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BFF8851929BD29008BC78B /* QCProgrammablePatch+Addition.m */; };
+		18BFF88F1929E129008BC78B /* STAEventPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BFF88D1929E129008BC78B /* STAEventPort.m */; };
+		18BFF8931929E1E7008BC78B /* STAAttributePort.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BFF8911929E1E7008BC78B /* STAAttributePort.m */; };
 		2AA2D25CB6824B1EAE7749CB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F958D97102F4A178411CE70 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +90,12 @@
 		18A3A272192329E200230A08 /* QCPatch+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QCPatch+Addition.m"; sourceTree = "<group>"; };
 		18BFF8801928EFD6008BC78B /* WebView+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "WebView+Addition.h"; sourceTree = "<group>"; };
 		18BFF8811928EFD6008BC78B /* WebView+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WebView+Addition.m"; sourceTree = "<group>"; };
+		18BFF8841929BD29008BC78B /* QCProgrammablePatch+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "QCProgrammablePatch+Addition.h"; sourceTree = "<group>"; };
+		18BFF8851929BD29008BC78B /* QCProgrammablePatch+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QCProgrammablePatch+Addition.m"; sourceTree = "<group>"; };
+		18BFF88C1929E129008BC78B /* STAEventPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = STAEventPort.h; sourceTree = "<group>"; };
+		18BFF88D1929E129008BC78B /* STAEventPort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAEventPort.m; sourceTree = "<group>"; };
+		18BFF8901929E1E7008BC78B /* STAAttributePort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = STAAttributePort.h; sourceTree = "<group>"; };
+		18BFF8911929E1E7008BC78B /* STAAttributePort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAAttributePort.m; sourceTree = "<group>"; };
 		5325EAB5E7444C9B973300E1 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		5F958D97102F4A178411CE70 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -230,6 +239,8 @@
 				18468AEB1924A39600F90480 /* NSObject+Addition.m */,
 				18BFF8801928EFD6008BC78B /* WebView+Addition.h */,
 				18BFF8811928EFD6008BC78B /* WebView+Addition.m */,
+				18BFF8841929BD29008BC78B /* QCProgrammablePatch+Addition.h */,
+				18BFF8851929BD29008BC78B /* QCProgrammablePatch+Addition.m */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -242,6 +253,10 @@
 				18A3A26B19221B9C00230A08 /* STAgateAdditions.h */,
 				18A3A26C19221B9C00230A08 /* STAgateAdditions.m */,
 				18468AE5192498B400F90480 /* STASerializableProtocol.h */,
+				18BFF88C1929E129008BC78B /* STAEventPort.h */,
+				18BFF88D1929E129008BC78B /* STAEventPort.m */,
+				18BFF8901929E1E7008BC78B /* STAAttributePort.h */,
+				18BFF8911929E1E7008BC78B /* STAAttributePort.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -363,11 +378,14 @@
 				185C10EE191889F20035802C /* STAgatePrincipal.m in Sources */,
 				18A3A273192329E200230A08 /* QCPatch+Addition.m in Sources */,
 				185C1139191894BF0035802C /* STAWidgetPatch.m in Sources */,
+				18BFF8871929BD29008BC78B /* QCProgrammablePatch+Addition.m in Sources */,
 				18A3A26D19221B9C00230A08 /* STAgateAdditions.m in Sources */,
+				18BFF88F1929E129008BC78B /* STAEventPort.m in Sources */,
 				18BFF8831928EFD6008BC78B /* WebView+Addition.m in Sources */,
 				180957E81924ADE1008A293C /* STAActionPatch.m in Sources */,
 				18A3A2691921169D00230A08 /* STAConnectionTrackingView.m in Sources */,
 				18468AED1924A39600F90480 /* NSObject+Addition.m in Sources */,
+				18BFF8931929E1E7008BC78B /* STAAttributePort.m in Sources */,
 				18A3A2661921139A00230A08 /* GFGraphView+Addition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
