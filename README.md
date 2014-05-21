@@ -29,7 +29,7 @@ In short, it's a quartz composer plugin for web developer.
 * Support macro patch
 * Add inline JS editing
 * Remove dependnecy form Origanmi
-* Adopt ARC by moveing Skanky SDK as seperate pod.
+* Adopt ARC by moving Skanky SDK as seperate cocoa pod.
 * Explore more usage pattern and create new patches to make awesome things happen.
 
 ## Authors
