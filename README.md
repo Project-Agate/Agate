@@ -1,6 +1,8 @@
 Agate
 =====
 
+![](https://dl.dropboxusercontent.com/u/1576742/agate.png)
+
 A toolkit for doing web programming using Quartz Composer
 
 ## Introduction
