@@ -21,6 +21,7 @@ In short, it's a quartz composer plugin for web developer.
 1. Build using Xcode 5
 2. It will be installed in plugin directory
 3. Open Quartz Composer and start hacking
+4. Be sure to start the server according to [VisualReactiveAPI](https://github.com/raincole/VisualReactiveAPI) for menu action: `Agate -> Compile` to work.
 
 ## Disclaimer
 
@@ -30,7 +31,7 @@ In short, it's a quartz composer plugin for web developer.
 
 * Support macro patch
 * Add inline JS editing
-* Remove dependnecy form Origanmi
+* Remove dependnecy form Origami
 * Adopt ARC by moving Skanky SDK as seperate cocoa pod.
 * Explore more usage pattern and create new patches to make awesome things happen.
 
