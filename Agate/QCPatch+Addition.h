@@ -10,4 +10,6 @@
 
 @interface QCPatch (Addition)
 
+- (BOOL) isMacroPatch;
+
 @end

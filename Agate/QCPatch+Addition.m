@@ -9,6 +9,7 @@
 #import "QCPatch+Addition.h"
 #import "STAWidgetPatch.h"
 #import "NSObject+Addition.h"
+#import "QCPatchView+Addition.h"
 
 @implementation QCPatch (Addition)
 
@@ -26,9 +27,13 @@
     
     [self ag_deleteConnectionForKey:key];
     
-    if ([node isKindOfClass:[STAWidgetPatch class]]) {
+    if ([node isKindOfClass:[STAWidgetPatch class]] && !self.userInfo[AGPatchDisableAutoInputRemovalKey]) {
         [node deleteInputPortForKey:port.key];
     }
+}
+
+- (BOOL)isMacroPatch {
+    return [self.attributes[@"name"] isEqualToString:@"Macro Patch"];
 }
 
 @end

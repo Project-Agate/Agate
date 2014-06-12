@@ -13,6 +13,8 @@
 #import "STAConnectionTrackingView.h"
 #import "NSObject+Addition.h"
 
+NSString * const AGPatchDisableAutoInputRemovalKey = @"AGPatchDisableAutoInputRemovalKey";
+
 @implementation QCPatchView (Addition)
 
 + (void)load {
@@ -20,6 +22,8 @@
     dispatch_once(&onceToken, ^{
         [self ag_swizzleInstanceMethod:@selector(_drawConnection:fromPort:point:toPoint:)];
         [self ag_swizzleInstanceMethod:@selector(_drawNode:bounds:)];
+        [self ag_swizzleInstanceMethod:@selector(_createSubgraphFromSelection:)];
+        [self ag_swizzleInstanceMethod:@selector(__explode:context:)];
     });
 }
 
@@ -64,6 +68,19 @@
     }
     //GFNode* node = fp8;
     //NSLog(@"%@ %.f %.f %.f %.f",node, fp12.origin.x, fp12.origin.y, fp12.size.width, fp12.size.height);
+}
+
+- (id)ag__createSubgraphFromSelection:(id)fp8 {
+    self.patch.userInfo[AGPatchDisableAutoInputRemovalKey] = @YES;
+    id v = [self ag__createSubgraphFromSelection:fp8];
+    [self.patch.userInfo removeObjectForKey:AGPatchDisableAutoInputRemovalKey];
+    return v;
+}
+
+- (void)ag___explode:(id)fp8 context:(void *)fp12 {
+    self.patch.userInfo[AGPatchDisableAutoInputRemovalKey] = @YES;
+    [self ag___explode:fp8 context:fp12];
+    [self.patch.userInfo removeObjectForKey:AGPatchDisableAutoInputRemovalKey];
 }
 
 @end

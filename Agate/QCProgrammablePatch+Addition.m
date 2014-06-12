@@ -10,6 +10,7 @@
 #import "STAgateAdditions.h"
 #import "STAWidgetPatch.h"
 #import "STAConstantPatch.h"
+#import "QCPort+Addition.h"
 
 @implementation QCProgrammablePatch (Addition)
 
@@ -43,8 +44,9 @@ static char kAssociatedObjectKey;
     // Generating parameters
     NSMutableArray* parameters = [NSMutableArray array];
     for (QCPort* port in self.inputPorts) {
-        if ([port connectedPort]) {
-            QCPort* originalPort = [port connectedPort];
+        QCPort* originalPort = [port ag_nonProxyOriginalPort];
+        
+        if (originalPort) {
             if ([[originalPort node] isKindOfClass:[QCProgrammablePatch class]] || [[originalPort node] isKindOfClass:[STAConstantPatch class]]) {
                 id param = @{@"name": [port key], @"valueRef": [(id<STASerializableProtocol>)[originalPort node] uid]};
                 [parameters addObject:param];

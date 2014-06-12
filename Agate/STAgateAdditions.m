@@ -12,6 +12,7 @@
 #import "STAWidgetPatch.h"
 #import "STAgatePrincipal.h"
 #import "QCProgrammablePatch+Addition.h"
+#import "QCPatch+Addition.h"
 #import <AFNetworking/AFNetworking.h>
 
 NSString* const kAgateServerEndpoint = @"http://localhost:3000";
@@ -90,26 +91,41 @@ NSString* const kAgateServerEndpoint = @"http://localhost:3000";
     [[NSApp mainMenu] insertItem:item atIndex:[[NSApp mainMenu] indexOfItemWithTitle:@"Help"]];
 }
 
-- (void)compile: (id) sender {
-    QCPatch* cp = [[STAgateAdditions sharedInstance] currentPatch];
+- (NSDictionary*) subProgramByCompilingMacroPatch: (QCPatch*) macroPatch {
+    NSAssert([macroPatch isMacroPatch], @"Patch should be a macro patch");
     
     NSMutableDictionary* program = [NSMutableDictionary dictionary];
     program[@"widgets"] = [NSMutableDictionary dictionary];
     program[@"signals"] = [NSMutableDictionary dictionary];
     
-    for (QCPatch* patch in cp.nodes) {
-        NSArray* signals = [(id<STASerializableProtocol>)patch agateSignals];
-        for (id sig in signals) {
-            program[@"signals"][sig[@"uid"]] = sig;
-        }
-        
-        if ([patch isKindOfClass:[STAWidgetPatch class]]) {
-            id widget = [(STAWidgetPatch*)patch widgetDictionary];
-            program[@"widgets"][widget[@"uid"]] = widget;
+    for (QCPatch* patch in macroPatch.nodes) {
+        if (patch.isMacroPatch) {
+            NSDictionary* subProgram = [self subProgramByCompilingMacroPatch:patch];
+            [program[@"widgets"] addEntriesFromDictionary:subProgram[@"widgets"]];
+            [program[@"signals"] addEntriesFromDictionary:subProgram[@"signals"]];
+        } else {
+            NSArray* signals = [(id<STASerializableProtocol>)patch agateSignals];
+            for (id sig in signals) {
+                program[@"signals"][sig[@"uid"]] = sig;
+            }
+            
+            if ([patch isKindOfClass:[STAWidgetPatch class]]) {
+                id widget = [(STAWidgetPatch*)patch widgetDictionary];
+                program[@"widgets"][widget[@"uid"]] = widget;
+            }
         }
     }
+    return program;
+}
+
+- (void)compile: (id) sender {
+    QCPatch* cp = [[STAgateAdditions sharedInstance] currentPatch];
     
-    NSLog(@"%@", program);
+    while (cp.parentPatch != nil) {
+        cp = cp.parentPatch;
+    }
+    
+    NSDictionary* program = [self subProgramByCompilingMacroPatch:cp];
 
     [self postToServer:program];
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18035BBC1948517800C1E225 /* QCPort+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18035BBB1948517800C1E225 /* QCPort+Addition.m */; };
 		180957E81924ADE1008A293C /* STAActionPatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 180957E71924ADE1008A293C /* STAActionPatch.m */; };
 		183F9D58192C462A00239DE1 /* STAConstantPatch.xml in Resources */ = {isa = PBXBuildFile; fileRef = 183F9D57192C462A00239DE1 /* STAConstantPatch.xml */; };
 		183F9D5C192C465D00239DE1 /* STAConstantPatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 183F9D5A192C465D00239DE1 /* STAConstantPatch.m */; };
@@ -32,6 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18035BBA1948517800C1E225 /* QCPort+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QCPort+Addition.h"; sourceTree = "<group>"; };
+		18035BBB1948517800C1E225 /* QCPort+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QCPort+Addition.m"; sourceTree = "<group>"; };
 		180957E61924ADE1008A293C /* STAActionPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STAActionPatch.h; sourceTree = "<group>"; };
 		180957E71924ADE1008A293C /* STAActionPatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAActionPatch.m; sourceTree = "<group>"; };
 		183F9D57192C462A00239DE1 /* STAConstantPatch.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = STAConstantPatch.xml; sourceTree = "<group>"; };
@@ -237,6 +240,8 @@
 		185C113C191B30B60035802C /* Additions */ = {
 			isa = PBXGroup;
 			children = (
+				18035BBA1948517800C1E225 /* QCPort+Addition.h */,
+				18035BBB1948517800C1E225 /* QCPort+Addition.m */,
 				18A3A2641921139A00230A08 /* GFGraphView+Addition.h */,
 				18A3A2651921139A00230A08 /* GFGraphView+Addition.m */,
 				18A3A25E1920F84700230A08 /* QCPatchView+Addition.h */,
@@ -389,6 +394,7 @@
 				185C1139191894BF0035802C /* STAWidgetPatch.m in Sources */,
 				183F9D5C192C465D00239DE1 /* STAConstantPatch.m in Sources */,
 				18BFF8871929BD29008BC78B /* QCProgrammablePatch+Addition.m in Sources */,
+				18035BBC1948517800C1E225 /* QCPort+Addition.m in Sources */,
 				18A3A26D19221B9C00230A08 /* STAgateAdditions.m in Sources */,
 				18BFF88F1929E129008BC78B /* STAEventPort.m in Sources */,
 				18BFF8831928EFD6008BC78B /* WebView+Addition.m in Sources */,

@@ -14,6 +14,7 @@
 #import "WebView+Addition.h"
 #import "STAEventPort.h"
 #import "STAAttributePort.h"
+#import "QCPort+Addition.h"
 
 @interface STAWidgetPatch ()
 
@@ -155,14 +156,16 @@
     NSMutableArray* signals = [NSMutableArray array];
     
     for (STAAttributePort* port in self.inputPorts) {
-        if (![port connectedPort]) continue;
-        NSAssert([[[port connectedPort] node] conformsToProtocol:@protocol(STASerializableProtocol)], @"The original port of %@ should be serializable", self);
+        QCPort* originalPort = [port ag_nonProxyOriginalPort];
+        
+        if (!originalPort) continue;
+        NSAssert([[originalPort node] conformsToProtocol:@protocol(STASerializableProtocol)], @"The original port of %@ should be serializable", self);
         
         id attribute = @{
                          @"type": @"wAttribute",
                          @"uid": port.uid,
                          @"elementRef": [@"#VRAC-": port.elementId, nil],
-                         @"signalRef": [(id<STASerializableProtocol>)[[port connectedPort] node] uid],
+                         @"signalRef": [(id<STASerializableProtocol>)[originalPort node] uid],
                          @"name": port.name
                        };
         [signals addObject:attribute];

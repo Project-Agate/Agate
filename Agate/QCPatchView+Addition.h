@@ -8,6 +8,8 @@
 
 #import <SkankySDK/SkankySDK.h>
 
+extern NSString * const AGPatchDisableAutoInputRemovalKey;
+
 @interface QCPatchView (Addition)
 
 @end
