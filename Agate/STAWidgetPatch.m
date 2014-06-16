@@ -68,7 +68,6 @@
     return patch;
 }
 
-
 -(id)initWithIdentifier:(id)identifier
 {
 	if(self = [super initWithIdentifier:identifier])
@@ -76,9 +75,11 @@
 		[[self userInfo] setObject:@"Agate Widget" forKey:@"name"];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionStarted:) name:@"agConnectionStart" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionEnded:) name:@"agConnectionEnd" object:nil];
+        [self createOutputWithPortClass:[QCVirtualPort class] forKey:@"renderTo" attributes:nil];
 	}
 	return self;
 }
+
 
 -(BOOL)setup:(QCOpenGLContext*)context
 {
@@ -315,6 +316,10 @@
         [items addObject:sectionTitleItem];
         
         NSDictionary* dict = [selectedElement toDictionary];
+        
+        if ([dict[@"isPlaceholder"] boolValue]) {
+            return @[[[NSMenuItem alloc] initWithTitle:@"No avaiable output" action:@selector(doNothingAction:) keyEquivalent:@""]];
+        }
         
         self.selectedElementDetail = dict;
         
