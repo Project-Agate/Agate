@@ -29,6 +29,8 @@
 		18BFF8871929BD29008BC78B /* QCProgrammablePatch+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BFF8851929BD29008BC78B /* QCProgrammablePatch+Addition.m */; };
 		18BFF88F1929E129008BC78B /* STAEventPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BFF88D1929E129008BC78B /* STAEventPort.m */; };
 		18BFF8931929E1E7008BC78B /* STAAttributePort.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BFF8911929E1E7008BC78B /* STAAttributePort.m */; };
+		18E4643B194E734B007D8922 /* STAPlaceholderPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E46439194E734A007D8922 /* STAPlaceholderPort.m */; };
+		18E4643F194E87E3007D8922 /* STARenerToPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4643D194E87E3007D8922 /* STARenerToPort.m */; };
 		2AA2D25CB6824B1EAE7749CB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F958D97102F4A178411CE70 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -104,6 +106,10 @@
 		18BFF88D1929E129008BC78B /* STAEventPort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAEventPort.m; sourceTree = "<group>"; };
 		18BFF8901929E1E7008BC78B /* STAAttributePort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = STAAttributePort.h; sourceTree = "<group>"; };
 		18BFF8911929E1E7008BC78B /* STAAttributePort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAAttributePort.m; sourceTree = "<group>"; };
+		18E46438194E734A007D8922 /* STAPlaceholderPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = STAPlaceholderPort.h; sourceTree = "<group>"; };
+		18E46439194E734A007D8922 /* STAPlaceholderPort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAPlaceholderPort.m; sourceTree = "<group>"; };
+		18E4643C194E87E3007D8922 /* STARenerToPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = STARenerToPort.h; sourceTree = "<group>"; };
+		18E4643D194E87E3007D8922 /* STARenerToPort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STARenerToPort.m; sourceTree = "<group>"; };
 		5325EAB5E7444C9B973300E1 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		5F958D97102F4A178411CE70 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -270,6 +276,10 @@
 				18BFF88D1929E129008BC78B /* STAEventPort.m */,
 				18BFF8901929E1E7008BC78B /* STAAttributePort.h */,
 				18BFF8911929E1E7008BC78B /* STAAttributePort.m */,
+				18E46438194E734A007D8922 /* STAPlaceholderPort.h */,
+				18E46439194E734A007D8922 /* STAPlaceholderPort.m */,
+				18E4643C194E87E3007D8922 /* STARenerToPort.h */,
+				18E4643D194E87E3007D8922 /* STARenerToPort.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -397,9 +407,11 @@
 				18035BBC1948517800C1E225 /* QCPort+Addition.m in Sources */,
 				18A3A26D19221B9C00230A08 /* STAgateAdditions.m in Sources */,
 				18BFF88F1929E129008BC78B /* STAEventPort.m in Sources */,
+				18E4643B194E734B007D8922 /* STAPlaceholderPort.m in Sources */,
 				18BFF8831928EFD6008BC78B /* WebView+Addition.m in Sources */,
 				180957E81924ADE1008A293C /* STAActionPatch.m in Sources */,
 				18A3A2691921169D00230A08 /* STAConnectionTrackingView.m in Sources */,
+				18E4643F194E87E3007D8922 /* STARenerToPort.m in Sources */,
 				18468AED1924A39600F90480 /* NSObject+Addition.m in Sources */,
 				18BFF8931929E1E7008BC78B /* STAAttributePort.m in Sources */,
 				18A3A2661921139A00230A08 /* GFGraphView+Addition.m in Sources */,

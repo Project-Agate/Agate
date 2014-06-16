@@ -15,6 +15,8 @@
 #import "STAEventPort.h"
 #import "STAAttributePort.h"
 #import "QCPort+Addition.h"
+#import "STARenerToPort.h"
+#import "STAPlaceholderPort.h"
 
 @interface STAWidgetPatch ()
 
@@ -75,7 +77,7 @@
 		[[self userInfo] setObject:@"Agate Widget" forKey:@"name"];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionStarted:) name:@"agConnectionStart" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionEnded:) name:@"agConnectionEnd" object:nil];
-        [self createOutputWithPortClass:[QCVirtualPort class] forKey:@"renderTo" attributes:nil];
+        [self createOutputWithPortClass:[STARenerToPort class] forKey:@"renderTo" attributes:nil];
 	}
 	return self;
 }
@@ -156,20 +158,40 @@
 - (NSArray *)agateSignals {
     NSMutableArray* signals = [NSMutableArray array];
     
-    for (STAAttributePort* port in self.inputPorts) {
-        QCPort* originalPort = [port ag_nonProxyOriginalPort];
+    for (id p in self.inputPorts) {
+        if ([p isKindOfClass:[STAAttributePort class]]) {
+            STAAttributePort* port = (STAAttributePort*) p;
+            
+            QCPort* originalPort = [port ag_nonProxyOriginalPort];
+            
+            if (!originalPort) continue;
+            NSAssert([[originalPort node] conformsToProtocol:@protocol(STASerializableProtocol)], @"The original port of %@ should be serializable", self);
+            
+            id attribute = @{
+                             @"type": @"wAttribute",
+                             @"uid": port.uid,
+                             @"elementRef": [@"#VRAC-": port.elementId, nil],
+                             @"signalRef": [(id<STASerializableProtocol>)[originalPort node] uid],
+                             @"name": port.name
+                             };
+            [signals addObject:attribute];
+        } else if ([p isKindOfClass:[STAPlaceholderPort class]]) {
+            STAPlaceholderPort* port = (STAPlaceholderPort*) p;
+            
+            QCPort* originalPort = [port ag_nonProxyOriginalPort];
+            
+            if (!originalPort) continue;
+            NSAssert([[originalPort node] conformsToProtocol:@protocol(STASerializableProtocol)], @"The original port of %@ should be serializable", self);
+            
+            id placholder = @{
+                             @"type": @"placeholder",
+                             @"uid": port.uid,
+                             @"widgetRef": self.uid,
+                             @"selector": port.uid
+                             };
+            [signals addObject:placholder];
+        }
         
-        if (!originalPort) continue;
-        NSAssert([[originalPort node] conformsToProtocol:@protocol(STASerializableProtocol)], @"The original port of %@ should be serializable", self);
-        
-        id attribute = @{
-                         @"type": @"wAttribute",
-                         @"uid": port.uid,
-                         @"elementRef": [@"#VRAC-": port.elementId, nil],
-                         @"signalRef": [(id<STASerializableProtocol>)[originalPort node] uid],
-                         @"name": port.name
-                       };
-        [signals addObject:attribute];
     }
     
     NSArray* eventPorts = [self.outputPorts select:^BOOL(id object) {
@@ -206,21 +228,25 @@
     if (self.outputPorts) [ports addObjectsFromArray:self.outputPorts];
     
     for (QCPort* port in ports) {
-        id element = @{
-                       @"uid": [@"#VRAC-": [(id)port elementId], nil],
-                       @"widgetRef": self.uid,
-                       @"selector": [@"#VRAC-": [(id)port elementId], nil],
-                    };
-        [signals addObject:element];
+        if ([port respondsToSelector:@selector(elementId)] && ![port isKindOfClass:[STAPlaceholderPort   class]]) {
+            id element = @{
+                           @"uid": [@"#VRAC-": [(id)port elementId], nil],
+                           @"widgetRef": self.uid,
+                           @"selector": [@"#VRAC-": [(id)port elementId], nil],
+                           };
+            [signals addObject:element];
+        }
     }
     
     return signals;
 }
 
 - (id)widgetDictionary {
+    STARenerToPort* renderToPort = [self valueForKey:@"renderTo"];
     NSDictionary* widget = @{
                              @"uid": self.uid,
-                             @"htmlPath": self.htmlPath
+                             @"htmlPath": self.htmlPath,
+                             @"renderTo": renderToPort.renderToRef
                              };
     return widget;
 }
@@ -233,7 +259,7 @@
 
 - (void)connectionEnded: (id) sender {
     JSValue* selectedElement = [self.webView.ag_jsContext evaluateScript:@"Webview.getCurrentElementDetail()"];
-    if (![selectedElement isNull]) {
+    if (![selectedElement isNull] && ![selectedElement isUndefined]) {
         // show contextual menu
         self.selectedElementId = [[selectedElement[@"uid"] toString] stringByReplacingOccurrencesOfString:@"VRAC-" withString:@""];
         
@@ -241,13 +267,22 @@
         
         NSDictionary* dict = [selectedElement toDictionary];
         
-        for (NSString* attribute in dict[@"attributes"]) {
-            NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:attribute action:@selector(menuItemSelected:) keyEquivalent:@""];
+        if ([self.connectFromPort isKindOfClass:[STARenerToPort class]]) {
+            NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:@"Render to here" action:@selector(renderTo:) keyEquivalent:@""];
             [item setTarget:self];
             [theMenu addItem:item];
+        } else {
+            for (NSString* attribute in dict[@"attributes"]) {
+                NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:attribute action:@selector(menuItemSelected:) keyEquivalent:@""];
+                [item setTarget:self];
+                [theMenu addItem:item];
+            }
         }
         
+        //TODO don't display menu when mouse is outside of webview
+        
         NSPoint p = [[NSApp keyWindow] mouseLocationOutsideOfEventStream];
+        
         NSEvent* event = [NSEvent mouseEventWithType:NSMouseMoved location:p modifierFlags:0 timestamp:[[NSDate date] timeIntervalSince1970] windowNumber:[[NSApp keyWindow] windowNumber] context:[NSGraphicsContext currentContext] eventNumber:0 clickCount:1 pressure:0];
         
         [NSMenu popUpContextMenu:theMenu withEvent:event forView:[STAConnectionTrackingView sharedView]];
@@ -414,6 +449,22 @@
 
 - (void)doNothingAction:(id)sender {
     
+}
+
+- (void)renderTo:(id)sender {
+    NSString* portKey = self.selectedElementId;
+    STAPlaceholderPort* createdPort = [self createInputWithPortClass:[STAPlaceholderPort class] forKey:portKey attributes:nil];
+    
+    createdPort.elementId = self.selectedElementId;
+    
+    [[STAgateAdditions patchView] setNeedsDisplayForNode:self];
+    
+    for (QCPort* port in self.customInputPorts) {
+        if ([port.key isEqualToString:portKey]) {
+            [(STARenerToPort*) self.connectFromPort setRenderToRef:createdPort.uid];
+            [self.graph createConnectionFromPort:self.connectFromPort toPort:port];
+        }
+    }
 }
 
 @end
