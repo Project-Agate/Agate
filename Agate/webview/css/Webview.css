@@ -1,0 +1,20 @@
+[vrac-placeholder] {
+  width: 100%;
+  min-height: 40px;
+  box-sizing:border-box;
+  border: 3px dotted #d3d3d3;
+}
+
+[vrac-placeholder]:before {
+  content: "#" attr(id) " ";
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  font-size: 20px;
+  color: #e2e2e2;
+  vertical-align: -50%;
+}
+
+[vrac-placeholder].vrac-agate-selecting:before {
+  color: #545454;
+}

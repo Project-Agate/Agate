@@ -288,7 +288,15 @@
     [context evaluateScript:@"var ele2 = document.createElement('script')"];
     [context evaluateScript:[[@"ele2.setAttribute('src','" stringByAppendingString:webviewPath] stringByAppendingString:@"')"]];
     
-    [context evaluateScript:@"ele.onload = function(){document.body.appendChild(ele2)}"];
+    // Injecting Webview.css
+    NSString* cssPath = [[[[STAgateAdditions sharedInstance] bundleURL] path] stringByAppendingString:@"/webview/css/Webview.css"];
+    
+    [context evaluateScript:@"var ele3 = document.createElement('link')"];
+    [context evaluateScript:[[@"ele3.setAttribute('href','" stringByAppendingString:cssPath] stringByAppendingString:@"')"]];
+    [context evaluateScript:@"ele3.setAttribute('rel','stylesheet')"];
+    
+    [context evaluateScript:@"ele.onload = function(){document.body.appendChild(ele2);document.head.appendChild(ele3)}"];
+    
     
     [context evaluateScript:@"document.body.appendChild(ele)"];
 }
